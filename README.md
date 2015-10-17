@@ -15,8 +15,16 @@ Dependencies
 Usage
 -----
 
-    ./hotspot.lua login|logout|status <gateway-ip> [<username> <password>]
+    $ ./hotspot.lua login|logout|status <gateway-ip> [<username> <password>]
 
-* e.g. logging in:
+e.g. to log in:
 
-        ./hotspot.lua login 10.10.1.254 user pw
+    $ ./hotspot.lua login 10.10.1.254 user pw
+
+or print the current status:
+
+    $ ./hotspot.lua status 10.10.1.254
+    User:      1012_XXX
+    IP:        192.168.48.160
+    Up/Down:   63.7 MiB / 892.8 MiB
+    Conn/Left: 2h7m14s / 21h52m46s

@@ -78,7 +78,15 @@ elseif cmd == "login" then
     print("Login: user or password parameter missing!")
     os.exit(1)
   end
-  loggedin = login(arg[3], arg[4])
+  local try = 0
+  local retries = 3
+  repeat
+    if try > 0 then
+      print("Login retry " .. try .. "/" .. retries .. "...")
+    end
+    loggedin = login(arg[3], arg[4])
+    try = try + 1
+  until loggedin or try > retries
   os.exit(loggedin and 0 or 1)
 elseif cmd == "logout" then
   logout()
