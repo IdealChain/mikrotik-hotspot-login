@@ -21,6 +21,10 @@ e.g. to log in:
 
     $ ./hotspot.lua login 10.10.1.254 user pw
 
+as a cronjob (0:00, 8:00 and 16:00):
+
+    0 */8 * * * /etc/hotspot.lua login 10.10.1.254 user pw | logger -t hotspot
+
 or print the current status:
 
     $ ./hotspot.lua status 10.10.1.254
