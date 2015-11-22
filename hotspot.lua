@@ -52,7 +52,12 @@ function login(user, pw)
   user = "1012_" .. user
   pw = md5.sumhexa(chap_id .. pw .. chap_challenge)
   print("Logging in " .. user .. " / " .. pw)
-  http.request(gateway .. "/login", string.format("username=%s&password=%s", user, pw))
+  b = http.request(gateway .. "/login", string.format("username=%s&password=%s", user, pw))
+  error = string.match(b, 'name="error" value="([^"]+)"')
+  if error then
+    print("Login error: " .. error)
+    return false
+  end
   return status()
 end
 
