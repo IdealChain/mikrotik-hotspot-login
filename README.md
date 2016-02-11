@@ -23,7 +23,7 @@ e.g. to log in:
 
 as a cronjob (0:00, 8:00 and 16:00):
 
-    0 */8 * * * /etc/hotspot.lua login 10.10.1.254 user pw | logger -t hotspot
+    0 */8 * * * /etc/hotspot.lua login 10.10.1.254 user pw 2>&1 | logger -t hotspot
 
 or print the current status:
 
