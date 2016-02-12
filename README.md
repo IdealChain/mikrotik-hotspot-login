@@ -15,19 +15,26 @@ Dependencies
 Usage
 -----
 
-    $ ./hotspot.lua login|logout|status <gateway-ip> [<username> <password>]
+    MikroTik HotSpot Gateway login script
+    Usage: ./hotspot.lua login|logout|status [Options]
+
+    Options:
+      -g <gateway-ip>  IP-Address/Hostname of hotspot gateway (always required)
+      -u <username>    Username for login
+      -p <password>    Password for login
+      -c <condition>   Condition when to renew an existing session
 
 e.g. to log in:
 
-    $ ./hotspot.lua login 10.10.1.254 user pw
+    $ ./hotspot.lua login -g 10.10.1.254 -u 1012_XXX -p pw
 
-as a cronjob (0:00, 8:00 and 16:00):
+as a cronjob (e.g. check status every 30 mins, renew at 7:30 or when remaining session time < 30 mins):
 
-    0 */8 * * * /etc/hotspot.lua login 10.10.1.254 user pw 2>&1 | logger -t hotspot
+    0,30 * * * * /etc/hotspot.lua login -g 10.10.1.254 -u 1012_XXX -p pw -c "(date.hour == 7 and date.min == 30) or status.left < 30*m" 2>&1 | logger -t hotspot
 
 or print the current status:
 
-    $ ./hotspot.lua status 10.10.1.254
+    $ ./hotspot.lua status -g 10.10.1.254
     User:      1012_XXX
     IP:        192.168.48.160
     Up/Down:   63.7 MiB / 892.8 MiB
