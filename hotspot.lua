@@ -94,6 +94,17 @@ function status(gateway)
     status.up_t, status.down_t = string.match(b, "bytes up/down:</td><td>([%w%. ]+) / ([%w%. ]+)")
     status.connected_t, status.left_t = string.match(b, "connected / left:</td><td>([%w ]+) / ([%w ]+)")
 
+    if not status.connected_t or not status.left_t then
+      status.connected_t = string.match(b, "connected:</td><td>([%w ]+)") or 0
+      status.left_t = 0
+    end
+
+    if not status.user or not status.ip or not status.up_t or not status.down_t then
+      print("Logged in, but status parsing failed.")
+      if b then print("=== Status: ===\n" .. b .. "\n=== /Status ===") end
+      return false
+    end
+
     print("User:      " .. status.user)
     print("IP:        " .. status.ip)
     print("Up/Down:   " .. status.up_t .. " / " .. status.down_t)
